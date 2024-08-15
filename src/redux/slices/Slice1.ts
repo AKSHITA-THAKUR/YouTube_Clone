@@ -2,12 +2,13 @@ import {
 	createAsyncThunk,
 	createSlice,
 } from "@reduxjs/toolkit";
-import { Categories , MostPopular , singleVideo  } from "../../handleApi";
+import { Categories , MostPopular , singleVideo  , channel } from "../../handleApi";
 
 export interface mainState {
 	category: string[];
 	data:any[];
 	video : any[];
+	chanel:any[];
 	status: "idle" | "loading" | "succeeded" | "failed";
 	error: string | null;
 }
@@ -16,6 +17,7 @@ const initialState: mainState = {
 	category: [],
 	video:[],
 	data:[],
+	chanel:[],
 	status: "idle",
 	error: null,
 };
@@ -32,6 +34,10 @@ export const fetchMostPopular = createAsyncThunk("Fetching/mostPopular" , async(
 export const fetchVideo = createAsyncThunk("fetchingInfo" , async( id:string | undefined)=>{
 const detail = await singleVideo(id);
 return detail;
+})
+export const fetchChannel = createAsyncThunk("fetchingChannel" , async(id:string)=>{
+const channelDetail = await channel(id);
+return channelDetail;
 })
 const mainSlice = createSlice({
 	name: "youTube",
@@ -78,6 +84,19 @@ const mainSlice = createSlice({
 			.addCase(fetchVideo.rejected , (state,action)=>{
 				state.status = "failed";
                 state.error = action.error.message || "Failed to fetch video information";
+			})
+			.addCase(fetchChannel.pending , (state)=>{
+				state.status = "loading";
+                state.error = null;
+			})
+			.addCase(fetchChannel.fulfilled , (state,action)=>{
+				state.status = "succeeded";
+                state.chanel = action.payload;
+                state.error = null;
+			})
+			.addCase(fetchChannel.rejected , (state,action)=>{
+				state.status = "failed";
+                state.error = action.error.message || "Failed to fetch channel information";
 			})
 	},
 });

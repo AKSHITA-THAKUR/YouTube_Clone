@@ -37,3 +37,14 @@ export const singleVideo = async (id:string | undefined) => { //To get the detai
 		console.error("Error in single video API", error);
 	}
 };
+
+export const channel = async(id:string) =>{
+	try{
+      const details = await axios.get(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${API_KEY}`)
+	  console.log("This is from handleApi",details.data.items)
+	  return details.data.items
+	}
+	catch(error){
+		console.error("Error in channel API",error);
+	}
+}

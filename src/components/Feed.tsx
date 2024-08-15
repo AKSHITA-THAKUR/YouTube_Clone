@@ -28,7 +28,7 @@ const Feed: React.FC = () => {
 		return videos.map((video: any) => {
 			return (
 				<div key={video.id} className="w-1/3 p-2 cursor-pointer ">
-					<div className="border rounded-lg shadow-lg bg-white h-full flex flex-col " 
+					<div className="border rounded-lg shadow-lg bg-white h-full flex flex-col hover:bg-slate-300 duration-300 " 
 					onClick={()=>{
 						navigate(`/video/${video.id}`)
 					}}>
@@ -37,7 +37,7 @@ const Feed: React.FC = () => {
 							alt={video.snippet.title}
 							
 						/>
-						<div className="p-4 flex-grow hover:bg-slate-300 duration-300">
+						<div className="p-4 flex-grow ">
 							<h3 className="text-md font-semibold">
 								{truncateTitle(video.snippet.title, 10)}
 							</h3>
