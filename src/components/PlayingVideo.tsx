@@ -19,21 +19,24 @@ const PlayingVideo: React.FC = () => {
 	const details = useAppSelector((state: RootState) => state.youTube.video);
 	console.log("This is from useEffect", details[0]);
 
-	// State to handle "Show More" / "Show Less" functionality
 	const [showFullDescription, setShowFullDescription] = useState(false);
 
-	// Function to toggle the description
 	const toggleDescription = () => {
 		setShowFullDescription(!showFullDescription);
 	};
 
 	return (
+		
 		<div className="flex h-[500px] mt-24 mx-24">
-			<div className="mt-10 w-[700px]">
+			<div className="mt-10 w-[700px] ">
+				
 				<div>
 					<ReactPlayer
 						url={`https://www.youtube.com/watch?v=${id}`}
+						
+						width="100%"
 						controls
+						style={{backgroundColor:"#000000"}}
 						playing={true}
 					/>
 				</div>
@@ -43,7 +46,7 @@ const PlayingVideo: React.FC = () => {
 					</h3>
 					<br />
 					<div className="flex">
-						<div className="font-semibold ml-2 mt-2 w-6">
+						<div className="font-semibold ml-2  w-6">
 							{details[0]?.snippet.channelTitle}
 						</div>
 						<button className="text-white bg-black font-semibold rounded-3xl h-9 w-24 ml-28">
@@ -63,7 +66,7 @@ const PlayingVideo: React.FC = () => {
 							</div>
 						</div>
 						<div>
-							<div className="px-4 w-[100px] h-10 rounded-3xl bg-slate-300 flex ml-8">
+							<div className="px-4 w-[100px] h-10 rounded-3xl bg-slate-300 flex ml-8 cursor-pointer">
 								<span className="mt-3">
 									<RiShareForwardLine />
 								</span>
@@ -74,13 +77,9 @@ const PlayingVideo: React.FC = () => {
 
 					<div className="bg-slate-100 mt-4 p-6 rounded-2xl border">
 						<div className="flex">
-                            <span className="flex-none font-semibold">{details[0]?.statistics?.viewCount} views</span>
-							 <span className=" flex-none font-semibold ml-5">{details[0]?.snippet.publishedAt}</span> 
-							 <span className="flex-none font-semibold ml-5">{details[0]?.snippet?.tags?.map((tags:string)=>{
-								return(
-									<span className="ml-1 text-blue-900" key={tags}>#{tags}</span>
-								)
-							})}</span>
+                            <span className="flex-none font-semibold">{abbreviateNumber(details[0]?.statistics?.viewCount, 1)} views</span>
+							<span className="font-semibold  ml-2">{new Date(details[0]?.snippet?.publishedAt).toLocaleDateString()}	</span>
+							
 						</div>
 						<p
 							className={`leading-7 mt-3 ${showFullDescription ? 'line-clamp-none' : 'line-clamp-3'}`}
@@ -94,7 +93,6 @@ const PlayingVideo: React.FC = () => {
 					</div>
 				</div>
 			</div>
-			<div className="bg-green-200"></div>
 		</div>
 	);
 };

@@ -14,6 +14,9 @@ const Categories: React.FC = () => {
 	const result = useAppSelector((state: RootState) => state.youTube.category);
 
 	const renderTitle = () => {
+		if (!result || result.length === 0) {
+			return <p>No Categories found</p>;
+		  }
 		return result.map((Titles: any) => (
 			<div
 				key={Titles.id}

@@ -2,7 +2,7 @@ import {
 	createAsyncThunk,
 	createSlice,
 } from "@reduxjs/toolkit";
-import { Categories , MostPopular , singleVideo  , channel } from "../../handleApi";
+import { Categories , MostPopular , singleVideo  , channel , search } from "../../handleApi";
 
 export interface mainState {
 	category: string[];
@@ -22,6 +22,24 @@ const initialState: mainState = {
 	error: null,
 };
 
+export interface filterState {
+	searchResult : any[];
+	categoryFilter : any[];
+	suggestions : any[];
+	status: "idle" | "loading" | "succeeded" | "failed";
+	error: string | null;
+
+}
+
+const initailFilterState : filterState ={
+	searchResult : [],
+    categoryFilter : [],
+    suggestions : [],
+	status: "idle",
+	error: null,
+}
+
+
 export const fetchCategories = createAsyncThunk("fetchCategories", async () => {
 	const categories = await Categories();
 	return categories;
@@ -38,6 +56,10 @@ return detail;
 export const fetchChannel = createAsyncThunk("fetchingChannel" , async(id:string)=>{
 const channelDetail = await channel(id);
 return channelDetail;
+})
+export const fetchSearchResult = createAsyncThunk("fetchingResult" , async(word:string|undefined)=>{
+	const searchResult = await search(word);
+    return searchResult;
 })
 const mainSlice = createSlice({
 	name: "youTube",
@@ -101,4 +123,28 @@ const mainSlice = createSlice({
 	},
 });
 
+const filterSlice = createSlice({
+	name:"filter" , 
+	initialState:initailFilterState,
+	reducers:{},
+	extraReducers:(builder)=> {
+		builder
+		.addCase(fetchSearchResult.pending , (state)=>{
+			  state.status = "loading"
+			  state.error = "null"
+		})
+		.addCase(fetchSearchResult.fulfilled , (state,action)=>{
+			  state.status = "succeeded";
+              state.searchResult = action.payload;
+              state.error = null;
+		})
+		.addCase(fetchSearchResult.rejected , (state,action)=>{
+              state.status = "failed";
+              state.error = action.error.message || "Failed to fetch search result";
+        })
+	}
+})
+
+
+export const filterReducer = filterSlice.reducer;
 export const youtubeReducer = mainSlice.reducer;

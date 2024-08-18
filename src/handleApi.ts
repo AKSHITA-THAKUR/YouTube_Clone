@@ -3,7 +3,7 @@ import axios from "axios";
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
 export const Categories = async () => {
-	//The above categories list
+	
 	try {
 		const response = await axios.get(
 			`https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=IN&key=${API_KEY}`
@@ -16,7 +16,7 @@ export const Categories = async () => {
 };
 
 export const MostPopular = async () => {
-	//Most popular videos of feed
+
 	try {
 		const popular = await axios.get(
 			`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=IN&key=${API_KEY}&maxResults=50`
@@ -27,7 +27,7 @@ export const MostPopular = async () => {
 	}
 };
 
-export const singleVideo = async (id:string | undefined) => { //To get the details of a specific video
+export const singleVideo = async (id:string | undefined) => { 
 	try {
 		const video = await axios.get(
 			` https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${API_KEY}`
@@ -46,5 +46,16 @@ export const channel = async(id:string) =>{
 	}
 	catch(error){
 		console.error("Error in channel API",error);
+	}
+}
+
+export const search = async(word:string|undefined) =>{ //API for search
+	try{
+   const search = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${word}s&key=${API_KEY}`)
+   console.log("The result from your query is ",search.data.items)
+   return search.data.items
+	}
+	catch(error){
+		console.error("Error in search API",error);
 	}
 }

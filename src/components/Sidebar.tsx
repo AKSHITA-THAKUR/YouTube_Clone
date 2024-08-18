@@ -16,8 +16,10 @@ import { PiFilmSlate } from "react-icons/pi";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 import { MdOutlinePodcasts } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
+    const navigate = useNavigate();
     const Explore = [
         {
             id: 1,
@@ -60,7 +62,10 @@ const Sidebar: React.FC = () => {
         <div className="relative h-[calc(100vh-6.625rem)] mt-24 w-[18%]">
             <div className="px-6  h-full overflow-y-hidden hover:overflow-y-scroll ">
                 <div className="space-y-2">
-                    <div className="flex items-center space-x-4 bg-gray-200 hover:bg-gray-300 rounded-xl p-2">
+                    <div className="flex items-center space-x-4 bg-gray-200 hover:bg-gray-300 rounded-xl p-2"
+                    onClick={()=>{
+                        navigate("/")
+                    }}>
                         <IoMdHome className="text-xl cursor-pointer" />
                         <span className="cursor-pointer">Home</span>
                     </div>
