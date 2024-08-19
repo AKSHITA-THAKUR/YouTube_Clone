@@ -35,7 +35,7 @@ const SearchList: React.FC = () => {
             alt={video?.snippet?.title}
             className="w-[400px] h-[228px] object-cover rounded-lg mr-4"
           />
-          <div className="w-[700px] h-[228px] ml-4 border ml-2" >
+          <div className="w-[700px] h-[228px]  border ml-2" >
             <h3 className="text-lg font-semibold mt-5 ">{video?.snippet?.title}</h3>
             <div className='flex text-slate-800 text-sm'>
               <p className="ml-2">{timeAgo}</p>

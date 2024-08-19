@@ -30,7 +30,7 @@ const Categories: React.FC = () => {
 	return (
 		<div className="ml-4">
 			<div className=" flex-1 mt-24 w-[1060px]">
-				<div className="flex flex-1  overflow-x-scroll no-scrollbar space-x-2 ">
+				<div className="flex flex-1  overflow-x-scroll no-scrollbar space-x-2  mb-2">
 					{renderTitle()}
 				</div>
 				<div >

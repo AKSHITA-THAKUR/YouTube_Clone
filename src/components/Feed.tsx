@@ -52,7 +52,7 @@ const Feed: React.FC = () => {
 								width: '100%',
 								playerVars: {
 								  autoplay: 1,
-								  controls: 0,
+								 
 								},
 							  }}
 						/>) : (
