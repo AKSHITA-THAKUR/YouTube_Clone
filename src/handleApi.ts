@@ -49,7 +49,7 @@ export const channel = async(id:string) =>{
 	}
 }
 
-export const search = async(word:string|undefined) =>{ //API for search
+export const search = async(word:string|undefined) =>{ 
 	try{
    const search = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${word}s&key=${API_KEY}`)
    console.log("The result from your query is ",search.data.items)

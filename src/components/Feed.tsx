@@ -13,12 +13,13 @@ const Feed: React.FC = () => {
 	const navigate = useNavigate();
 	const [playingId , setPlayingId] = useState<string|null>(null);
 
+	const {data:videos,status} = useAppSelector((state: RootState) => state.youTube); //destructuring data
+
+	console.log("The videos are", videos);
 	useEffect(() => {
+		if(videos.length) return;
 		dispatch(fetchMostPopular());
 	}, [dispatch]);
-
-	const videos = useAppSelector((state: RootState) => state.youTube.data);
-	console.log("The videos are", videos);
 
 	const truncateTitle = (title: string, wordLimit: number) => {
 		const words = title.split(" ");
@@ -35,7 +36,7 @@ const Feed: React.FC = () => {
 		return videos.map((video: any) => {
 			
 			return (
-				<div key={video.id} className="w-1/3 p-2 cursor-pointer"
+				<div key={video.id} className="w-full sm:w-1/2 lg:w-1/3 p-2 cursor-pointer"
 				onMouseEnter={() => setPlayingId(video.id)}
 				onMouseLeave={()=> setPlayingId(null)}
 				>
@@ -83,8 +84,12 @@ const Feed: React.FC = () => {
 
 	return (
 		<div>
-			<div className="h-[500px] flex flex-wrap overflow-y-scroll no-scrollbar">
-				{showVideos()}
+			<div className="h-[460px] flex flex-wrap overflow-y-scroll no-scrollbar">
+			{status === "loading" ? (
+					<p className="text-center w-full">Loading...</p>
+				) : (
+					showVideos()
+				)}
 			</div>
 		</div>
 	);
