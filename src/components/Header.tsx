@@ -3,7 +3,7 @@ import { MdKeyboardVoice } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 import logo from "../assets/youTubeLogo-removebg-preview.png";
-import PP from "../assets/PP.jpg"; // Default profile picture
+import PP from "../assets/PP.jpg";
 import { IoSearchOutline } from "react-icons/io5";
 import { FiMenu } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -47,6 +47,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
 					className="rounded-r-full px-3 bg-gray-100 hover:bg-slate-300"
 					onClick={() => {
 						navigate(`/search/${query}`);
+						setQuery("");
 					}}
 				>
 					<IoSearchOutline size={20} />
