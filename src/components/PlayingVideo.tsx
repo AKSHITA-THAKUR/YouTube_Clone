@@ -63,7 +63,10 @@ const PlayingVideo: React.FC = () => {
 									{like ? <BiSolidLike /> : <AiOutlineLike />}
 								</div>
 								<span className="text-sm lg:text-base">
-									{abbreviateNumber(details[0]?.statistics?.likeCount, 1)}
+									{abbreviateNumber(
+										details[0]?.statistics?.likeCount,
+										1
+									)}
 								</span>
 							</div>
 							<div
@@ -71,13 +74,19 @@ const PlayingVideo: React.FC = () => {
 								onClick={() => setDislike(!disLike)}
 							>
 								<div className="mt-2">
-									{disLike ? <BiSolidDislike /> : <AiOutlineDislike />}
+									{disLike ? (
+										<BiSolidDislike />
+									) : (
+										<AiOutlineDislike />
+									)}
 								</div>
 							</div>
 							<div className="ml-4">
 								<div className="px-4 w-[100px] h-10 rounded-3xl bg-slate-300 flex items-center cursor-pointer">
 									<RiShareForwardLine className="mr-2" />
-									<span className="text-sm lg:text-base">Share</span>
+									<span className="text-sm lg:text-base">
+										Share
+									</span>
 								</div>
 							</div>
 						</div>
@@ -86,15 +95,23 @@ const PlayingVideo: React.FC = () => {
 					<div className="bg-slate-100 mt-4 p-4 md:p-6 rounded-2xl border">
 						<div className="flex justify-between">
 							<span className="flex-none font-semibold">
-								{abbreviateNumber(details[0]?.statistics?.viewCount, 1)} views
+								{abbreviateNumber(
+									details[0]?.statistics?.viewCount,
+									1
+								)}{" "}
+								views
 							</span>
 							<span className="font-semibold">
-								{new Date(details[0]?.snippet?.publishedAt).toLocaleDateString()}
+								{new Date(
+									details[0]?.snippet?.publishedAt
+								).toLocaleDateString()}
 							</span>
 						</div>
 						<p
 							className={`leading-7 mt-3 ${
-								showFullDescription ? "line-clamp-none" : "line-clamp-3"
+								showFullDescription
+									? "line-clamp-none"
+									: "line-clamp-3"
 							}`}
 							style={{ wordSpacing: "0.15rem" }}
 						>

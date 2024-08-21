@@ -5,11 +5,11 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import Feed from "./Feed";
 
-interface CategoryProp{
-isCollapsed : boolean;
+interface CategoryProp {
+	isCollapsed: boolean;
 }
 
-const Categories: React.FC<CategoryProp> = ({isCollapsed}) => {
+const Categories: React.FC<CategoryProp> = ({ isCollapsed }) => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -17,11 +17,11 @@ const Categories: React.FC<CategoryProp> = ({isCollapsed}) => {
 	}, [dispatch]);
 
 	const result = useAppSelector((state: RootState) => state.youTube.category);
-    const status = useAppSelector((state: RootState) => state.youTube.status);
+	const status = useAppSelector((state: RootState) => state.youTube.status);
 	const renderTitle = () => {
 		if (!result || result.length === 0) {
 			return <p>No Categories found</p>;
-		  }
+		}
 		return result.map((Titles: any) => (
 			<div
 				key={Titles.id}
@@ -33,19 +33,26 @@ const Categories: React.FC<CategoryProp> = ({isCollapsed}) => {
 	};
 
 	return (
-		<div className={`ml-3 flex-1 mt-24 ${isCollapsed ? 'w-[calc(100%-60px)]' : 'w-[calc(100%-18%)]'}`}>
-      <div className={`flex flex-1 overflow-x-scroll no-scrollbar space-x-2 mb-2  ${isCollapsed ? "" : 'w-[1080px]'} `}>
-	  {status === "loading" ? (
+		<div
+			className={`ml-3 flex-1 mt-24 ${
+				isCollapsed ? "w-[calc(100%-60px)]" : "w-[calc(100%-18%)]"
+			}`}
+		>
+			<div
+				className={`flex flex-1 overflow-x-scroll no-scrollbar space-x-2 mb-2  ${
+					isCollapsed ? "" : "w-[1080px]"
+				} `}
+			>
+				{status === "loading" ? (
 					<p className="text-center w-full">Loading...</p>
 				) : (
 					renderTitle()
 				)}
-        
-      </div>
-      <div>
-        <Feed />
-      </div>
-    </div>
+			</div>
+			<div>
+				<Feed />
+			</div>
+		</div>
 	);
 };
 
